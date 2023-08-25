@@ -5,11 +5,15 @@ namespace bcw_2023summer_keepr.Controllers
     public class VaultsController : ControllerBase
     {
         private readonly VaultsService _vaultsService;
+        private readonly KeepsService _keepsService;
         private readonly Auth0Provider _auth0Provider;
-        public VaultsController(VaultsService vaultsService, Auth0Provider auth0Provider)
+        private readonly VaultKeepsService _vaultKeepsService;
+        public VaultsController(VaultsService vaultsService, Auth0Provider auth0Provider, VaultKeepsService vaultKeepsService, KeepsService keepsService)
         {
             _vaultsService = vaultsService;
             _auth0Provider = auth0Provider;
+            _vaultKeepsService = vaultKeepsService;
+            _keepsService = keepsService;
         }
 
         [Authorize]
@@ -70,6 +74,21 @@ namespace bcw_2023summer_keepr.Controllers
                 Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
                 _vaultsService.DeleteVault(vaultId, userInfo.Id);
                 return Ok("Vault deleted");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("{vaultId}/keeps")]
+        public async Task<ActionResult<List<VaultKeep>>> GetKeepsByVaultId(int vaultId)
+        {
+            try
+            {
+                Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+                List<KeepRelationship> keeps = _keepsService.GetKeepsByVaultId(vaultId, userInfo?.Id);
+                return Ok(keeps);
             }
             catch (Exception e)
             {

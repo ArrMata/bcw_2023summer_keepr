@@ -19,7 +19,7 @@ namespace bcw_2023summer_keepr.Services
         internal Vault EditVault(Vault vaultData, string userId)
         {
             Vault originalVault = GetVaultById(vaultData.Id, userId);
-            _VaultOwnerCheck(originalVault, userId);
+            VaultOwnerCheck(originalVault, userId);
             originalVault.Name = vaultData.Name ?? originalVault.Name;
             originalVault.Description = vaultData.Description ?? originalVault.Description;
             originalVault.isPrivate = vaultData.isPrivate ?? originalVault.isPrivate;
@@ -38,7 +38,7 @@ namespace bcw_2023summer_keepr.Services
         internal void DeleteVault(int vaultId, string userId)
         {
             Vault vaultToDelete = GetVaultById(vaultId, userId);
-            _VaultOwnerCheck(vaultToDelete, userId);
+            VaultOwnerCheck(vaultToDelete, userId);
             _vaultsRepository.DeleteVault(vaultId);
         }
 
@@ -53,7 +53,7 @@ namespace bcw_2023summer_keepr.Services
                 throw new Exception("No vault found!");
             }
         }
-        private void _VaultOwnerCheck(Vault vaultToCheck, string userId)
+        public void VaultOwnerCheck(Vault vaultToCheck, string userId)
         {
             if (vaultToCheck.CreatorId != userId)
             {

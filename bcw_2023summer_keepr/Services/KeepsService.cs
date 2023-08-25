@@ -3,10 +3,12 @@ namespace bcw_2023summer_keepr.Services
     public class KeepsService
     {
         private readonly KeepsRepository _keepsRepository;
+        private readonly VaultsService _vaultsService;
 
-        public KeepsService(KeepsRepository keepsRepository)
+        public KeepsService(KeepsRepository keepsRepository, VaultsService vaultsService)
         {
             _keepsRepository = keepsRepository;
+            _vaultsService = vaultsService;
         }
 
         internal Keep CreateKeep(Keep keepData)
@@ -53,6 +55,14 @@ namespace bcw_2023summer_keepr.Services
         internal List<Keep> GetKeeps()
         {
             List<Keep> keeps = _keepsRepository.GetKeeps();
+            return keeps;
+        }
+        
+        
+        internal List<KeepRelationship> GetKeepsByVaultId(int vaultId, string userId)
+        {
+            _vaultsService.GetVaultById(vaultId, userId);
+            List<KeepRelationship> keeps = _keepsRepository.GetKeepsByVaultId(vaultId);
             return keeps;
         }
     }

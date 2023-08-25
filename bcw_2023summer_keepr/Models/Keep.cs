@@ -10,4 +10,9 @@ namespace bcw_2023summer_keepr.Models
         public int Kept { get; set; }
         public Profile Creator { get; set; }
     }
+
+    public class KeepRelationship : Keep
+    {
+        public int VaultKeepId { get; set; }
+    }
 }

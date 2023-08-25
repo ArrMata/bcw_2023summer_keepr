@@ -45,10 +45,10 @@ namespace bcw_2023summer_keepr.Repositories
             string sql = @"
             SELECT 
             k.*,
-            COUNT(kv.id) AS kept,
+            COUNT(vk.id) AS kept,
             acc.*
             FROM keeps k
-            LEFT JOIN vaultkeeps kv ON kv.keepId = k.id
+            LEFT JOIN vaultkeeps vk ON vk.keepId = k.id
             JOIN accounts acc ON acc.id = k.creatorId
             WHERE k.id = @KeepId
             ;";
@@ -76,6 +76,30 @@ namespace bcw_2023summer_keepr.Repositories
                 keep.Creator = profile;
                 return keep;
             }).ToList();
+            return keeps;
+        }
+
+        internal List<KeepRelationship> GetKeepsByVaultId(int vaultId)
+        {
+            string sql = @"
+            SELECT
+            vk.id,
+            k.*,
+            acc.*
+            FROM vaultkeeps vk
+            JOIN keeps k ON k.id = vk.keepId
+            JOIN accounts acc ON acc.id = vk.creatorId
+            WHERE vk.vaultId = @VaultId
+            ;";
+
+            List<KeepRelationship> keeps = (
+                _db.Query<VaultKeep, KeepRelationship, Profile, KeepRelationship>(sql, 
+                (vaultkeep, keeprelationship, profile) => {
+                    keeprelationship.VaultKeepId = vaultkeep.Id;
+                    keeprelationship.Creator = profile;
+                    return keeprelationship;
+                }, new { vaultId }).ToList()
+            );
             return keeps;
         }
     }
