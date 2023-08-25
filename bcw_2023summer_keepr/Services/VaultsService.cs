@@ -42,6 +42,17 @@ namespace bcw_2023summer_keepr.Services
             _vaultsRepository.DeleteVault(vaultId);
         }
 
+        
+        internal List<Vault> GetVaultsByProfileId(string profileId, string userId)
+        {
+            List<Vault> vaults = _vaultsRepository.GetVaultsByProfileId(profileId);
+            if (profileId != userId)
+            {
+                vaults = vaults.FindAll(vault => vault.isPrivate == false);
+            }
+            return vaults;
+        }
+
         private void _VaultValidationChecks(Vault vaultToCheck, string userId)
         {
             if (vaultToCheck == null)

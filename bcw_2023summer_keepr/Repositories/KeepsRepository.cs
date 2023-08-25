@@ -79,6 +79,13 @@ namespace bcw_2023summer_keepr.Repositories
             return keeps;
         }
 
+        internal List<Keep> GetKeepsByProfileId(string profileId)
+        {
+            string sql = "SELECT * FROM keeps WHERE creatorId = @ProfileId;";
+            List<Keep> keeps = _db.Query<Keep>(sql, new { profileId }).ToList();
+            return keeps;
+        }
+
         internal List<KeepRelationship> GetKeepsByVaultId(int vaultId)
         {
             string sql = @"

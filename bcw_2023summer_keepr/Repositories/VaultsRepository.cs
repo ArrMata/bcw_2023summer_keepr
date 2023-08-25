@@ -57,5 +57,16 @@ namespace bcw_2023summer_keepr.Repositories
             }, new { vaultId }).FirstOrDefault();
             return foundVault;
         }
+
+        internal List<Vault> GetVaultsByProfileId(string profileId)
+        {
+            string sql = @"
+            SELECT * FROM vaults
+            WHERE creatorId = @ProfileId
+            ;";
+
+            List<Vault> vaults = _db.Query<Vault>(sql, new { profileId }).ToList();
+            return vaults;
+        }
     }
 }

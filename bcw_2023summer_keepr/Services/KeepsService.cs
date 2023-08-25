@@ -57,8 +57,13 @@ namespace bcw_2023summer_keepr.Services
             List<Keep> keeps = _keepsRepository.GetKeeps();
             return keeps;
         }
-        
-        
+
+        internal List<Keep> GetKeepsByProfileId(string profileId)
+        {
+            List<Keep> keeps = _keepsRepository.GetKeepsByProfileId(profileId);
+            return keeps;
+        }
+
         internal List<KeepRelationship> GetKeepsByVaultId(int vaultId, string userId)
         {
             _vaultsService.GetVaultById(vaultId, userId);

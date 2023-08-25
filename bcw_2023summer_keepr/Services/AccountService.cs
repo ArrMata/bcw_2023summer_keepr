@@ -24,6 +24,16 @@ public class AccountService
     return profile;
   }
 
+  internal Profile GetProfileById(string userId)
+  {
+    Profile profile = _repo.GetProfileById(userId);
+    if (profile == null)
+    {
+      throw new Exception("Profile with id not found");
+    }
+    return profile;
+  }
+
   internal Account Edit(Account editData, string userEmail)
   {
     Account original = GetProfileByEmail(userEmail);
