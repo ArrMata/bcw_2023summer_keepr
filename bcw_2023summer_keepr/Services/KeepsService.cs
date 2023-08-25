@@ -35,7 +35,6 @@ namespace bcw_2023summer_keepr.Services
             }
             originalKeep.Name = keepData.Name ?? originalKeep.Name;
             originalKeep.Description = keepData.Description ?? originalKeep.Description;
-            originalKeep.Img = keepData.Img ?? originalKeep.Img;
             _keepsRepository.EditKeep(originalKeep);
             Keep editedKeep = GetKeepById(keepData.Id);
             return editedKeep;
