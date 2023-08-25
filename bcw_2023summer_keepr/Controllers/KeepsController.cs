@@ -45,7 +45,7 @@ namespace bcw_2023summer_keepr.Controllers
         }
 
         [HttpGet("{keepId}")]
-        public ActionResult<List<Keep>> GetKeepById(int keepId)
+        public ActionResult<Keep> GetKeepById(int keepId)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace bcw_2023summer_keepr.Controllers
 
         [Authorize]
         [HttpDelete("{keepId}")]
-        public async Task<ActionResult<List<Keep>>> DeleteKeep(int keepId)
+        public async Task<ActionResult<string>> DeleteKeep(int keepId)
         {
             try
             {
