@@ -44,3 +44,5 @@ CREATE TABLE vaultkeeps(
 DROP TABLE keeps;
 DROP TABLE vaults;
 DROP TABLE vaultkeeps;
+
+DELETE FROM keeps;
