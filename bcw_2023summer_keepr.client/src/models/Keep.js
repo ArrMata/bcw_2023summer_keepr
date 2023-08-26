@@ -1,5 +1,8 @@
 export class Keep {
 	constructor(data) {
+		this.id = data.id;
+		this.createdAt = data.createdAt;
+		this.updatedAt = data.updatedAt;
 		this.creatorId = data.creatorId;
 		this.name = data.name;
 		this.description = data.description;
