@@ -25,7 +25,7 @@ namespace bcw_2023summer_keepr.Controllers
             try
             {
                 Profile profile = _accountService.GetProfileById(profileId);
-                return profile;
+                return Ok(profile);
             }
             catch (Exception e)
             {
@@ -39,7 +39,7 @@ namespace bcw_2023summer_keepr.Controllers
             try
             {
                 List<Keep> keeps = _keepsService.GetKeepsByProfileId(profileId);
-                return keeps;
+                return Ok(keeps);
             }
             catch (Exception e)
             {
@@ -54,7 +54,7 @@ namespace bcw_2023summer_keepr.Controllers
             {
                 Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
                 List<Vault> vaults = _vaultsService.GetVaultsByProfileId(profileId, userInfo?.Id);
-                return vaults;
+                return Ok(vaults);
             }
             catch (Exception e)
             {
