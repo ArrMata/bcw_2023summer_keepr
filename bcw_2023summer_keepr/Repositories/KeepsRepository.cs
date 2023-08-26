@@ -34,7 +34,8 @@ namespace bcw_2023summer_keepr.Repositories
             SET
             name = @Name,
             description = @Description,
-            Img = @Img
+            views = @Views,
+            img = @Img
             WHERE id = @Id
             ;";
             _db.Execute(sql, originalKeep);

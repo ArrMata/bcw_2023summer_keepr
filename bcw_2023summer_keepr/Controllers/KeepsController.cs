@@ -49,7 +49,7 @@ namespace bcw_2023summer_keepr.Controllers
         {
             try
             {
-                Keep foundKeep = _keepsService.GetKeepById(keepId);
+                Keep foundKeep = _keepsService.ViewKeepById(keepId);
                 return Ok(foundKeep);
             }
             catch (Exception e)

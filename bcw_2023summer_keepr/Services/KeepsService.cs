@@ -52,6 +52,14 @@ namespace bcw_2023summer_keepr.Services
             return keep;
         }
 
+        internal Keep ViewKeepById(int keepId)
+        {
+            Keep keepToView = GetKeepById(keepId);
+            keepToView.Views++;
+            _keepsRepository.EditKeep(keepToView);
+            return keepToView;
+        }
+
         internal List<Keep> GetKeeps()
         {
             List<Keep> keeps = _keepsRepository.GetKeeps();
