@@ -36,4 +36,13 @@ body {
   background-color: #f9f6fa;
 }
 
+header{
+  height: 82px;
+}
+
+main {
+  background-color: #fef6f0;
+  margin-top: 0.5rem;
+}
+
 </style>
