@@ -3,7 +3,7 @@
     <Navbar />
   </header>
   <main>
-    <router-view />
+    <router-view /> 
   </main>
 </template>
 
@@ -24,5 +24,16 @@ export default {
 
 <style lang="scss">
 @import "./assets/scss/main.scss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Marko+One&family=Oxygen:wght@400;700&display=swap');
+
+// SECTION CSS Font Families 
+// font-family: 'Inter', sans-serif;
+// font-family: 'Marko One', serif;
+// font-family: 'Oxygen', sans-serif;
+
+body {
+  font-family: 'Marko One', serif;
+  background-color: #f9f6fa;
+}
 
 </style>
