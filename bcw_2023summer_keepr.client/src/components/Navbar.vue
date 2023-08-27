@@ -75,6 +75,7 @@ hr {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1000;
   @media (max-width: 768px){
     top:auto;
     bottom: 0;
