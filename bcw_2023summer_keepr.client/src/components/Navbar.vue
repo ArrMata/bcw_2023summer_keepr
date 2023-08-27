@@ -6,10 +6,10 @@
         <li class="nav-item">
           <RouterLink :class="{selected: route.name == 'Home' }" :to="{ name : 'Home' }">Home</RouterLink>
         </li>
-        <li class="nav-item dropdown">
+        <li v-if="account.id" class="nav-item dropdown">
           <p class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Create</p>
           <ul class="dropdown-menu position-absolute">
-            <li><p class="dropdown-item" role="button">New Keep</p></li>
+            <li><p class="dropdown-item" role="button" data-bs-toggle="modal" data-bs-target="#createKeepModal">New Keep</p></li>
             <li><hr class="dropdown-divider"></li>
             <li><p class="dropdown-item" role="button">New Vault</p></li>
           </ul>
@@ -17,8 +17,8 @@
       </ul>
       <!-- SECTION MOBILE DROPUP -->
       <ul class="navbar-nav d-md-none d-md-block order-1 order-md-0">
-        <li class="nav-item dropup">
-          <btn class="create-button dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Create</btn>
+        <li v-if="account.id" class="nav-item dropup">
+          <button class="create-button dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Create</button>
           <ul class="dropdown-menu position-absolute">
             <li><p class="dropdown-item" role="button">New Keep</p></li>
             <li><hr class="dropdown-divider"></li>
@@ -35,12 +35,14 @@
 <script>
 import { RouterLink, useRoute } from 'vue-router';
 import Login from './Login.vue';
+import { AppState } from '../AppState';
+import { computed, ref } from 'vue';
 export default {
   setup() {
     const route = useRoute();
     return {
       route,
-
+      account: computed(() => AppState.account),
     }
   },
   components: { Login, RouterLink }
@@ -105,7 +107,8 @@ hr {
   color: #fef6f0;
   cursor: pointer;
   padding: 0.75rem;
-  border-radius: 0.25rem;
+  border: none;
+  border-radius: .75rem;
 }
 
 .navbar-nav {
