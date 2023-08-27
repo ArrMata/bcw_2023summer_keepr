@@ -38,11 +38,17 @@ body {
 
 header{
   height: 82px;
+  @media (max-width: 767px) {
+    height: 0;
+  }
 }
 
 main {
   background-color: #fef6f0;
   margin-top: 0.5rem;
+  @media (max-width: 767px) {
+    margin-top: 0;
+  }
 }
 
 </style>
