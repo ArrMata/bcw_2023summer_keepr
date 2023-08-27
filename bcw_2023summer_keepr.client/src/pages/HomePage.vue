@@ -5,6 +5,7 @@
         <div class="masonry-layout">
           <div v-for="k in keeps" :key="k.id" class="keep-card" :style="{backgroundImage:`linear-gradient(0deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 25%), url(${k.img})`}">
             <p>{{ k.name }}</p>
+            <img class="d-md-block d-none profile-picture" :src="k.creator.picture" :alt="k.creator.name" :title="k.creator.name">
           </div>
         </div>
       </div>
@@ -16,14 +17,18 @@
 import { computed, onMounted, onUnmounted, onUpdated } from 'vue';
 import { AppState } from '../AppState';
 import { keepsService } from '../services/KeepsService';
+import { logger } from '../utils/Logger';
 
 export default {
   setup() {
     
     function randomizeHeights(){
       const cards = document.getElementsByClassName('keep-card');
-      if(cards.length > 0){
-        for(let i = 0; i < cards.length; i++){
+      if(cards.length < 0){
+        return
+      }
+      for(let i = 0; i < cards.length; i++){
+        if (isNaN(parseInt(cards[i].style.height))){
           cards[i].style.height = `${Math.floor((Math.random() * 500) + 200)}px`;
         }
       }
@@ -75,6 +80,7 @@ export default {
 .keep-card {
   display: flex;
   align-items: end;
+  justify-content: space-between;
   width: 100%;
   background-size: cover;
   background-position: center;
@@ -90,6 +96,12 @@ export default {
     color: white;
     margin-bottom: 0;
   }
+}
+
+.profile-picture {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
 }
 
 .masonry-layout {
