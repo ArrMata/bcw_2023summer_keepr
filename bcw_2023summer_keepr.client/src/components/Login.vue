@@ -75,6 +75,6 @@ export default {
 <style lang="scss" scoped>
 .profile-picture {
   border-radius: 50%;
-  width: 3.5rem;
+  width: 2.75rem;
 }
 </style>
