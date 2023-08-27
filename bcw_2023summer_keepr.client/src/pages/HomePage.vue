@@ -29,6 +29,8 @@ export default {
       }
     }
 
+    // NOTE Masonry Functions / Grid Approach from Andy Barefoot https://medium.com/@andybarefoot/a-masonry-style-layout-using-css-grid-8c663d355ebb
+
     function resizeAllGridItems() {
       const cards = document.getElementsByClassName('keep-card');
       if(cards.length > 0){
