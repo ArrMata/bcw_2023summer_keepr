@@ -3,7 +3,7 @@
     <section class="row">
       <div class="col-md-10 col-12 mx-auto py-4 px-md-0 px-3">
         <div class="masonry-layout">
-          <div v-for="k in keeps" :key="k.id" class="keep-card" :style="{backgroundImage: `url(${k.img})`}">
+          <div v-for="k in keeps" :key="k.id" class="keep-card" :style="{backgroundImage:`linear-gradient(0deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 25%), url(${k.img})`}">
             <p>{{ k.name }}</p>
           </div>
         </div>
@@ -73,19 +73,29 @@ export default {
 <style scoped lang="scss">
 
 .keep-card {
-  position: relative;
+  display: flex;
+  align-items: end;
   width: 100%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   break-inside: avoid;  
   border-radius: .5rem;
+  padding: 1rem .75rem;
+  box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.35);
+
+  p {
+    text-overflow: ellipsis;
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 0;
+  }
 }
 
 .masonry-layout {
   display: grid;
   row-gap: 1rem;
-  column-gap: 4rem;
+  column-gap: 2.5rem;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   grid-auto-rows: 3px;
   width: 100%;
