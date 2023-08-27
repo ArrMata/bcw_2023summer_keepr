@@ -36,6 +36,8 @@
 import { ref } from 'vue';
 import { keepsService } from '../services/KeepsService';
 import { Modal } from 'bootstrap';
+import Pop from '../utils/Pop';
+import { logger } from '../utils/Logger';
 
 export default {
 	setup() {
@@ -44,9 +46,14 @@ export default {
 		return {
 			keepData,
 			async createKeep() {
-				keepsService.createKeep(keepData.value);
-				keepData.value = {};
-				Modal.getOrCreateInstance('#createKeepModal').hide();
+				try {
+					keepsService.createKeep(keepData.value);
+					keepData.value = {};
+					Modal.getOrCreateInstance('#createKeepModal').hide();
+				} catch (error) {
+					Pop.error(error.message);
+					logger.error(error.message);
+				}
 			}
 		}
 	}
