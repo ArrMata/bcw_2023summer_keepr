@@ -5,12 +5,14 @@
   <main>
     <router-view /> 
   </main>
+  <CreateKeepModal />
 </template>
 
 <script>
 import { computed } from 'vue'
 import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
+import CreateKeepModal from './components/CreateKeepModal.vue'
 
 export default {
   setup() {
@@ -18,7 +20,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar }
+  components: { Navbar, CreateKeepModal }
 }
 </script>
 
@@ -49,6 +51,18 @@ main {
   @media (max-width: 767px) {
     margin-top: 0;
   }
+}
+
+.inter {
+  font-family: 'Inter', sans-serif;
+}
+
+.marko-one {
+  font-family: 'Marko One', serif;
+}
+
+.oxygen {
+  font-family: 'Oxygen', sans-serif;
 }
 
 </style>
