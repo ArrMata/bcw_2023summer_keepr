@@ -23,7 +23,7 @@ public class AccountsRepository
 
   internal Profile GetProfileById(string id)
   {
-    string sql = "SELECT id, createdAt, updatedAt, picture, name FROM accounts WHERE id = @id";
+    string sql = "SELECT id, createdAt, updatedAt, picture, name, coverImg FROM accounts WHERE id = @id";
     return _db.QueryFirstOrDefault<Profile>(sql, new { id });
   }
 
