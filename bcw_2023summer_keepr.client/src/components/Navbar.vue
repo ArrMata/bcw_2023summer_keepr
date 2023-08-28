@@ -11,7 +11,7 @@
           <ul class="dropdown-menu position-absolute">
             <li><p class="dropdown-item" role="button" data-bs-toggle="modal" data-bs-target="#createKeepModal">New Keep</p></li>
             <li><hr class="dropdown-divider"></li>
-            <li><p class="dropdown-item" role="button">New Vault</p></li>
+            <li><p class="dropdown-item" role="button" data-bs-toggle="modal" data-bs-target="#createVaultModal">New Vault</p></li>
           </ul>
         </li>
       </ul>
@@ -20,9 +20,9 @@
         <li v-if="account.id" class="nav-item dropup">
           <button class="create-button dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Create</button>
           <ul class="dropdown-menu position-absolute">
-            <li><p class="dropdown-item" role="button">New Keep</p></li>
+            <li><p class="dropdown-item" role="button" data-bs-toggle="modal" data-bs-target="#createKeepModal">New Keep</p></li>
             <li><hr class="dropdown-divider"></li>
-            <li><p class="dropdown-item" role="button">New Vault</p></li>
+            <li><p class="dropdown-item" role="button" data-bs-toggle="modal" data-bs-target="#createVaultModal">New Vault</p></li>
           </ul>
         </li>
       </ul>
