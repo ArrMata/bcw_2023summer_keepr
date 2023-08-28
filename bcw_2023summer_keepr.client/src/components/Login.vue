@@ -15,7 +15,7 @@
         </div>
         <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="authDropdown">
           <div class="list-group">
-            <router-link :to="{ name: 'Account' }">
+            <router-link v-if="account.id" :to="{ name: 'Profile', params: { userId: account.id } }">
               <div class="list-group-item dropdown-item list-group-item-action">
                 My Profile
               </div>
@@ -36,7 +36,7 @@
         </div>
         <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="authDropdown">
           <div class="list-group">
-            <router-link :to="{ name: 'Account' }">
+            <router-link v-if="account.id" :to="{ name: 'Profile', params: { userId: account.id } }">
               <div class="list-group-item dropdown-item list-group-item-action">
                 My Profile
               </div>
