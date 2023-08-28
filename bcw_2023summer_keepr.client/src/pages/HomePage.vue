@@ -17,6 +17,7 @@
 import { computed, onMounted, onUnmounted, onUpdated } from 'vue';
 import { AppState } from '../AppState';
 import { keepsService } from '../services/KeepsService';
+import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
 
 export default {
@@ -54,11 +55,21 @@ export default {
     }
 
     const getAllKeeps = async() => {
-      keepsService.getAllKeeps();
+      try {
+        keepsService.getAllKeeps();
+      } catch (error) {
+        Pop.error(error.message);
+        logger.error(error);
+      }
     };
-
+    
     const clearAllKeeps = async() => {
-      keepsService.clearAllKeeps()
+      try {
+        keepsService.clearAllKeeps()
+      } catch (error) {
+        Pop.error(error.message);
+        logger.error(error);
+      }
     };
 
     onMounted(() => getAllKeeps())
