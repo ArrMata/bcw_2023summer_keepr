@@ -1,6 +1,5 @@
 <template>
 	<!-- Modal Body -->
-	<!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
 	<div class="modal fade" id="createKeepModal" tabindex="-1" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
 			<div class="modal-content">
@@ -38,10 +37,12 @@ import { keepsService } from '../services/KeepsService';
 import { Modal } from 'bootstrap';
 import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
+import { useRoute } from 'vue-router';
 
 export default {
 	setup() {
 		const keepData = ref({});
+		const route = useRoute()
 
 		return {
 			keepData,

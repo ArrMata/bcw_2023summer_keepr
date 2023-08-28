@@ -1,6 +1,5 @@
 <template>
 	<!-- Modal Body -->
-	<!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
 	<div class="modal fade" id="createVaultModal" tabindex="-1" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
 			<div class="modal-content">
@@ -41,17 +40,22 @@ import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
 import { Modal } from 'bootstrap';
 import { vaultsService } from '../services/VaultsService';
+import { useRoute } from 'vue-router';
 
 export default {
 	setup() {
-		const vaultData = ref({});
+		const vaultData = ref({
+			isPrivate : false,
+		});
+		const route = useRoute()
 		
 		return {
 			vaultData,
 			async createVault() {
 				try {
+					vaultsService.createVault(vaultData.value, route);
 					vaultData.value = {};
-					Modal.getOrCreateInstance('#createKeepModal').hide();
+					Modal.getOrCreateInstance('#createVaultModal').hide();
 				} catch (error) {
 					Pop.error(error.message);
 					logger.error(error)
