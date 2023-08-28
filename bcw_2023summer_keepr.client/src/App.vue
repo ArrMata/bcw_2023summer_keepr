@@ -7,6 +7,7 @@
   </main>
   <CreateKeepModal />
   <CreateVaultModal />
+  <KeepDetailsModal />
 </template>
 
 <script>
@@ -15,6 +16,7 @@ import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
 import CreateKeepModal from './components/CreateKeepModal.vue'
 import CreateVaultModal from './components/CreateVaultModal.vue'
+import KeepDetailsModal from './components/KeepDetailsModal.vue'
 
 export default {
   setup() {
@@ -22,7 +24,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar, CreateKeepModal, CreateVaultModal }
+  components: { Navbar, CreateKeepModal, CreateVaultModal, KeepDetailsModal }
 }
 </script>
 
@@ -38,6 +40,7 @@ export default {
 body {
   font-family: 'Marko One', serif;
   background-color: #f9f6fa;
+  height: 100dvh;
 }
 
 header{
@@ -48,10 +51,13 @@ header{
 }
 
 main {
+  height: calc(100dvh - (82px + .5rem));
   background-color: #fef6f0;
   margin-top: 0.5rem;
+  overflow-y: scroll;
   @media (max-width: 767px) {
     margin-top: 0;
+    margin-bottom: 82px;
   }
 }
 
