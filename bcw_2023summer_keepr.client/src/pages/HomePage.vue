@@ -3,10 +3,7 @@
     <section class="row">
       <div class="col-md-10 col-12 mx-auto py-4 px-md-0 px-3">
         <div class="masonry-layout">
-          <div v-for="k in keeps" :key="k.id" class="keep-card" :style="{backgroundImage:`linear-gradient(0deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 25%), url(${k.img})`}">
-            <p>{{ k.name }}</p>
-            <img class="d-md-block d-none profile-picture" :src="k.creator.picture" :alt="k.creator.name" :title="k.creator.name">
-          </div>
+          <KeepCard v-for="k in keeps" :key="k.id" :keep="k"/>
         </div>
       </div>
     </section>
@@ -14,11 +11,12 @@
 </template>
 
 <script>
-import { computed, onMounted, onUnmounted, onUpdated } from 'vue';
+import { computed, onMounted, onUpdated, onBeforeUnmount } from 'vue';
 import { AppState } from '../AppState';
 import { keepsService } from '../services/KeepsService';
 import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
+import KeepCard from '../components/KeepCard.vue';
 
 export default {
   setup() {
@@ -72,56 +70,35 @@ export default {
       }
     };
 
-    onMounted(() => getAllKeeps())
-    onUnmounted(() => clearAllKeeps())
+    onMounted(async() => await getAllKeeps());
+    onBeforeUnmount(() => clearAllKeeps());
     onUpdated(() => {
       randomizeHeights()
       resizeAllGridItems()
-    })
+    });
 
     return {
       keeps: computed(() => AppState.keeps),
     };
-  }
+  },
+  components: { KeepCard },
 };
 </script>
 
 <style scoped lang="scss">
 
-.keep-card {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  width: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  break-inside: avoid;  
-  border-radius: .5rem;
-  padding: 1rem .75rem;
-  box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.35);
-
-  p {
-    text-overflow: ellipsis;
-    font-size: 1.5rem;
-    color: white;
-    margin-bottom: 0;
-  }
-}
-
-.profile-picture {
-  height: 3rem;
-  width: 3rem;
-  border-radius: 50%;
-}
-
 .masonry-layout {
   display: grid;
   row-gap: 1rem;
   column-gap: 2.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
   grid-auto-rows: 3px;
   width: 100%;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+  }
+
   @media (max-width: 767px) {
     column-gap: 2rem;
     grid-template-columns: repeat(2, 1fr);
