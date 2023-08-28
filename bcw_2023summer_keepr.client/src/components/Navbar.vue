@@ -2,7 +2,7 @@
   <nav class="navbar nav-position elevation-3">
     <div class="container-fluid px-3 px-md-5">
       <!-- SECTION DESKTOP DROPDOWN -->
-      <ul class="navbar-nav d-none d-md-flex order-1 order-md-0">
+      <ul class="inner-flexbox justify-content-start navbar-nav d-none d-md-flex order-1 order-md-0">
         <li class="nav-item">
           <RouterLink :class="{selected: route.name == 'Home' }" :to="{ name : 'Home' }">Home</RouterLink>
         </li>
@@ -26,8 +26,12 @@
           </ul>
         </li>
       </ul>
-      <img class="order-0 order-md-1" src="../assets/img/Keepr logo.svg" alt="Keepr Logo"/>
-      <Login class="order-2"/>
+      <div class="inner-flexbox order-0 order-md-1">
+        <img src="../assets/img/Keepr logo.svg" alt="Keepr Logo"/>
+      </div>
+      <div class="order-2 inner-flexbox justify-content-end">
+        <Login />
+      </div>
     </div>
   </nav>
 </template>
@@ -50,6 +54,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+.inner-flexbox {
+  @media (min-width: 768px) {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+}
 
 nav {
   font-family: 'Oxygen', sans-serif;
@@ -79,7 +91,7 @@ hr {
   right: 0;
   z-index: 1000;
   @media (max-width: 768px){
-    top:auto;
+    top: auto;
     bottom: 0;
   }
 }
