@@ -7,7 +7,7 @@
   </main>
   <CreateKeepModal />
   <CreateVaultModal />
-  <KeepDetailsModal />
+  <KeepDetailsModal /> 
 </template>
 
 <script>
@@ -51,9 +51,9 @@ header{
 }
 
 main {
-  height: calc(100dvh - (82px + .5rem));
+  height: calc(100dvh - (82px + 1rem));
   background-color: #fef6f0;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   overflow-y: scroll;
   @media (max-width: 767px) {
     margin-top: 0;
@@ -71,6 +71,10 @@ main {
 
 .oxygen {
   font-family: 'Oxygen', sans-serif;
+}
+
+.modal-backdrop {
+  background-color: #ded6e9;
 }
 
 </style>
