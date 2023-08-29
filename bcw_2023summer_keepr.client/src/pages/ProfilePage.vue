@@ -14,7 +14,7 @@
 				<div>
 					<p class="fw-bold oxygen fs-3">Vaults</p>
 					<section class="row">
-						<div v-for="v in vaults" :key="v.id" class="col-md-3 col-6 px-0">
+						<div v-for="v in vaults" :key="v.id" class="col-md-3 col-6 px-0 my-2">
 							<RouterLink :to="{ name: 'Vault', params: { vaultId: v.id } }">
 								<div role="button" class="card-style elevation-5 mx-2" :style="{backgroundImage:`linear-gradient(0deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 50%), url(${v.img})`}">
 									<i v-if="v.isPrivate" class="mdi mdi-lock mb-auto ms-auto fs-3" title="Private Vault"></i>
@@ -28,7 +28,7 @@
 				<div class="mt-5">
 					<p class="fw-bold oxygen fs-3">Keeps</p>
 					<section class="row">
-						<div v-for="k in keeps" :key="k.id" class="col-md-3 col-6 px-0">
+						<div v-for="k in keeps" :key="k.id" class="col-md-3 col-6 px-0 my-2">
 							<div role="button" @click="getActiveKeep(k.id)" class="card-style mx-2" :style="{backgroundImage:`linear-gradient(0deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 50%), url(${k.img})`}">
 								<p class="mb-0">{{ k.name }}</p>
 							</div>
@@ -132,6 +132,8 @@ i {
 	width: 6rem;
 	height: 6rem;
 	border-radius: 50%;
+	object-fit: cover;
+	object-position: center;
 	position: absolute;
 	bottom: -15%;
 	left: 50%;
