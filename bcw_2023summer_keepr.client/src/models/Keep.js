@@ -10,6 +10,6 @@ export class Keep {
 		this.views = data.views;
 		this.kept = data.kept;
 		this.creator = data.creator;
-		this.vaultkeepid = data.vaultkeepid;
+		this.vaultKeepId = data.vaultKeepId;
 	}
 }
