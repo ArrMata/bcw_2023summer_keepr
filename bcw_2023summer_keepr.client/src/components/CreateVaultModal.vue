@@ -10,11 +10,11 @@
 					<p class="mb-0 oxygen fw-bold fs-2">Add your vault</p>
 					<form @submit.prevent="createVault">
 						<div class="form-floating mb-3">
-							<input v-model="vaultData.name" type="text" class="form-control inter" id="keepNameInput" placeholder="" minlength="5" maxlength="100" required>
+							<input v-model="vaultData.name" type="text" class="form-control inter" id="vaultNameInput" placeholder="" minlength="5" maxlength="100" required>
 							<label class="inter floating-label" for="keepNameInput">Title...</label>
 						</div>
 						<div class="form-floating mb-3">
-							<input v-model="vaultData.img" type="url" class="form-control inter" id="keepImageInput" placeholder="" minlength="25" maxlength="400" required>
+							<input v-model="vaultData.img" type="url" class="form-control inter" id="vaultImageInput" placeholder="" minlength="25" maxlength="400" required>
 							<label class="inter floating-label" for="keepImageInput">Cover Image URL...</label>
 						</div>
 						<div class="d-flex justify-content-end mb-2">
