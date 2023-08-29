@@ -43,13 +43,12 @@
 													</button>	
 													<SaveToVaultSelector v-else/>
 												</div>
-												<!-- FIXME use router-link -->
-												<div class="d-flex ms-auto align-items-center">
-													<RouterLink @click="routeToProfile" :title="`Go to ${activeKeep.creator.name}'s Profile!`" :to="{name: 'Profile', params: { userId: activeKeep.creatorId }}">
+												<RouterLink class="d-flex ms-auto align-items-center profile-name" @click="routeToProfile" :title="`Go to ${activeKeep.creator.name}'s Profile!`" :to="{name: 'Profile', params: { userId: activeKeep.creatorId }}">
+													<div>
 														<img class="profile-picture me-2" :src="activeKeep.creator.picture" :alt="activeKeep.creator.name">
-														<span class="oxygen fw-bold">{{ activeKeep.creator.name }}</span>
-													</RouterLink>
-												</div>
+														<span class="oxygen fw-bold ">{{ activeKeep.creator.name }}</span>
+													</div>
+												</RouterLink>
 											</div>
 										</div>
 									</div>
@@ -194,6 +193,10 @@ section {
 		height: 3.5rem;
 		width: 3.5rem;
 	}
+}
+
+.profile-name {
+	white-space: nowrap;
 }
 
 .modal-body {
