@@ -70,8 +70,10 @@ export default {
 }
 
 .profile-picture {
-  height: 3rem;
   width: 3rem;
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+	object-position: center;
   border-radius: 50%;
 }
 
