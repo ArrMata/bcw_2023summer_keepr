@@ -27,7 +27,9 @@
         </li>
       </ul>
       <div class="inner-flexbox order-0 order-md-1">
-        <img src="../assets/img/Keepr logo.svg" alt="Keepr Logo"/>
+        <RouterLink :to="{ name : 'Home' }" class="px-0">
+          <img src="../assets/img/Keepr logo.svg" alt="Keepr Logo"/>
+        </RouterLink>
       </div>
       <div class="order-2 inner-flexbox justify-content-end">
         <Login />
@@ -115,7 +117,7 @@ hr {
 }
 
 .create-button {
-  background-color: #877a8f;
+  background-color: #6b6171;
   color: #fef6f0;
   cursor: pointer;
   padding: 0.75rem;
