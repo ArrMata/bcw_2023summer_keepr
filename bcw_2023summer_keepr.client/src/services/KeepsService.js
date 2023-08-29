@@ -16,10 +16,18 @@ class KeepsService {
 		AppState.activeKeep = null;
 	}
 
-	async createKeep(keepData) {
+	async createKeep(keepData, route) {
+		const uid = AppState.account.id;
 		const res = await api.post('api/keeps', keepData);
-		// TODO Add conditional pushing to AppState depending on route and userId
-		AppState.keeps.push(new Keep(res.data));
+		if (route.name === 'Home') {
+			AppState.keeps.push(new Keep(res.data));
+			return
+		}
+
+		if (route.name === 'Profile' && route.params.userId === uid) {
+			AppState.keeps.push(new Keep(res.data));
+			return
+		}
 	}
 
 	async getActiveKeep(keepId, vaultKeepId = null) {

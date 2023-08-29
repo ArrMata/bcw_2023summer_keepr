@@ -26,6 +26,10 @@ class AccountService {
     const res = await api.put('/account', accountData)
     AppState.account = new Account(res.data)
   }
+
+  clearAccount() {
+    AppState.activeAccount = {};
+  }
 }
 
 export const accountService = new AccountService()

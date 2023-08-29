@@ -1,6 +1,6 @@
 <template>
 	<!-- Modal Body -->
-	<div class="modal fade" id="createKeepModal" tabindex="-1" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+	<div class="modal fade" id="createKeepModal" tabindex="-1" data-bs-keyboard="false" role="dialog" aria-labelledby="createKeepModal" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-body">
@@ -10,7 +10,7 @@
 					<p class="mb-0 oxygen fw-bold fs-2">Add your keep</p>
 					<form @submit.prevent="createKeep">
 						<div class="form-floating mb-3">
-							<input v-model="keepData.name" type="text" class="form-control inter" id="keepNameInput" placeholder="" minlength="5" maxlength="100" required>
+							<input v-model="keepData.name" type="text" class="form-control inter" id="keepNameInput" placeholder="" minlength="5" maxlength="40" required>
 							<label class="inter floating-label" for="keepNameInput">Name...</label>
 						</div>
 						<div class="form-floating mb-3">
@@ -18,7 +18,7 @@
 							<label class="inter floating-label" for="keepImageInput">Image URL...</label>
 						</div>
 						<div class="form-floating mb-3">
-							<textarea v-model="keepData.description" class="form-control inter" id="keepDescInput" placeholder="" minlength="5" maxlength="500"></textarea>
+							<textarea v-model="keepData.description" class="form-control inter" id="keepDescInput" placeholder="" minlength="5" maxlength="300"></textarea>
 							<label class="inter floating-label" for="keepDescInput">Keep Description...</label>
 						</div>
 						<div class="d-flex justify-content-end">
@@ -42,13 +42,13 @@ import { useRoute } from 'vue-router';
 export default {
 	setup() {
 		const keepData = ref({});
-		const route = useRoute()
+		const route = useRoute();
 
 		return {
 			keepData,
 			async createKeep() {
 				try {
-					keepsService.createKeep(keepData.value);
+					await keepsService.createKeep(keepData.value, route);
 					keepData.value = {};
 					Modal.getOrCreateInstance('#createKeepModal').hide();
 				} catch (error) {

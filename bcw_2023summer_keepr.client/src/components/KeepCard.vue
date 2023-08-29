@@ -3,7 +3,7 @@
 	role="button" class="keep-card" data-bs-toggle="modal" data-bs-target="#keepDetailsModal" 
 	:style="{backgroundImage:`linear-gradient(0deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 45%), url(${keep.img})`}">
 		<p>{{ keep.name }}</p>
-		<img class="d-md-block d-none profile-picture" :src="keep.creator.picture" :alt="keep.creator.name" :title="keep.creator.name">
+		<img class="ms-md-1 ms-0 d-md-block d-none profile-picture" :src="keep.creator.picture" :alt="keep.creator.name" :title="keep.creator.name">
 	</div>
 </template>
 

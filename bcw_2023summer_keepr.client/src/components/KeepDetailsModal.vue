@@ -43,9 +43,12 @@
 													</button>	
 													<SaveToVaultSelector v-else/>
 												</div>
-												<div @click="routeToProfile" role="button" class="d-flex ms-auto align-items-center">
-													<img class="profile-picture me-2" :src="activeKeep.creator.picture" :alt="activeKeep.creator.name">
-													<span class="oxygen fw-bold">{{ activeKeep.creator.name }}</span>
+												<!-- FIXME use router-link -->
+												<div class="d-flex ms-auto align-items-center">
+													<RouterLink @click="routeToProfile" :title="`Go to ${activeKeep.creator.name}'s Profile!`" :to="{name: 'Profile', params: { userId: activeKeep.creatorId }}">
+														<img class="profile-picture me-2" :src="activeKeep.creator.picture" :alt="activeKeep.creator.name">
+														<span class="oxygen fw-bold">{{ activeKeep.creator.name }}</span>
+													</RouterLink>
 												</div>
 											</div>
 										</div>
@@ -65,28 +68,26 @@ import { AppState } from '../AppState';
 import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
 import { keepsService } from '../services/KeepsService';
-import { useRouter } from 'vue-router';
 import { Modal } from 'bootstrap';
 import SaveToVaultSelector from './SaveToVaultSelector.vue';
 import { vaultKeepsService } from '../services/VaultKeepsService';
 
 export default {
     setup() {
-        const router = useRouter();
         const activeKeep = computed(() => AppState.activeKeep);
         function clearActiveKeep() {
             try {
-                keepsService.clearActiveKeep();
+              keepsService.clearActiveKeep();
             }
             catch (error) {
-                Pop.error(error.message);
-                logger.error(error);
+              Pop.error(error.message);
+              logger.error(error);
             }
         }
         onMounted(() => {
             const modalElem = document.getElementById('keepDetailsModal');
             modalElem.addEventListener('hidden.bs.modal', () => {
-                clearActiveKeep();
+              clearActiveKeep();
             });
         });
 
@@ -96,14 +97,13 @@ export default {
             accountVaults: computed(() => AppState.accountVaults),
             account: computed(() => AppState.account),
             routeToProfile() {
-                try {
-                    router.push({ name: 'Profile', params: { userId: activeKeep.value.creatorId } });
-                    Modal.getOrCreateInstance('#keepDetailsModal').hide();
-                }
-                catch (error) {
-                    Pop.error(error.message);
-                    logger.error(error);
-                }
+							try {
+								Modal.getOrCreateInstance('#keepDetailsModal').hide();
+							}
+							catch (error) {
+								Pop.error(error.message);
+								logger.error(error);
+							}
             },
 						async removeKeepVault() {
 							try {
@@ -141,6 +141,10 @@ export default {
 	flex: 1;
 	display: flex;
 	justify-content: center;
+}	
+
+a {
+	color: #212529;
 }
 
 section {
@@ -149,7 +153,6 @@ section {
 		height: 80dvh;
 	}
 }
-
 
 .keep-details-section {
 	display: flex;

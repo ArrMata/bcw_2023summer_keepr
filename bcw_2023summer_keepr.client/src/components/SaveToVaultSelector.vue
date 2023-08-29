@@ -1,7 +1,7 @@
 <template>
 	<form class="d-flex" @submit.prevent="saveToVault">
 		<select v-model="selected" required class="form-select form-select-md">
-			<option value="">Select a Vault</option>
+			<option value="">Select to a Vault</option>
 			<option v-for="v in accountVaults" :key="v.id" :value="v.id">{{ v.name }}</option>
 		</select>
 		<button :disabled="selected === ''" class="save-button oxygen fw-bold ms-2">save</button>

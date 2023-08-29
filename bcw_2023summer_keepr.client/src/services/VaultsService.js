@@ -4,10 +4,13 @@ import { api } from "./AxiosService";
 
 class VaultsService {
 
-	async createVault(vaultData, route, userId) {
+	async createVault(vaultData, route) {
+		const uid = AppState.account.id;
 		const res = await api.post('api/vaults', vaultData);
-		// TODO Add conditional pushing to AppState depending on route and userId
 		AppState.accountVaults.push(new Vault(res.data));
+		if (route.name === 'Profile' && route.params.userId === uid) {
+			AppState.vaults.push(new Vault(res.data));
+		}
 	}
 
 	async getAccountVaults() {
@@ -28,6 +31,7 @@ class VaultsService {
 	async deleteVault() {
 		const vaultId = AppState.activeVault.id;
 		await api.delete(`api/vaults/${vaultId}`);
+		AppState.accountVaults = AppState.accountVaults.filter(vault => vault.id != vaultId);
 	}
 
 	clearAllVaults() {

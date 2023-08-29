@@ -28,7 +28,7 @@ export default {
       }
       for(let i = 0; i < cards.length; i++){
         if (isNaN(parseInt(cards[i].style.height))){
-          cards[i].style.height = `${Math.floor((Math.random() * 500) + 200)}px`;
+          cards[i].style.height = `${Math.floor((Math.random() * 200) + 300)}px`;
         }
       }
     }
@@ -54,7 +54,7 @@ export default {
 
     const getAllKeeps = async() => {
       try {
-        keepsService.getAllKeeps();
+        await keepsService.getAllKeeps();
       } catch (error) {
         Pop.error(error.message);
         logger.error(error);

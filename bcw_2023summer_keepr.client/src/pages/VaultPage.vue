@@ -15,7 +15,7 @@
 					</div>
 					<div class="inner-flexbox justify-content-end">
 						<div v-if="account?.id === activeVault.creatorId" class="dropdown pe-2">
-							<i class="mdi mdi-dots-horizontal fs-2" title="Click to expand options" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+							<i class="mdi mdi-dots-horizontal fs-2" title="Click to expand options" type="button" data-bs-toggle="dropdown"></i>
 							<div class="dropdown-menu" aria-labelledby="triggerId">
 								<p @click="deleteVault" role="button" title="Delete this vault" class="dropdown-item d-flex align-items-center mb-0 oxygen fw-bold" href="#">
 									<i class="mdi mdi-trash-can fs-5 me-1"></i>
@@ -44,7 +44,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { vaultsService } from '../services/VaultsService'
 import Pop from '../utils/Pop'
 import { logger } from '../utils/Logger'
-import { computed, onBeforeUnmount, onMounted } from 'vue'
+import { computed, onBeforeUnmount, onMounted, watchEffect } from 'vue'
 import { AppState } from '../AppState';
 import { keepsService } from '../services/KeepsService'
 import { Modal } from 'bootstrap'
@@ -60,7 +60,7 @@ export default {
 				await vaultsService.getVaultById(route.params.vaultId);
 				await keepsService.getKeepsByVaultId(route.params.vaultId);
 			} catch (error) {
-				if(error.response.data === 'No vault found!') {
+				if(error.response.data.includes('No vault found')) {
 					Pop.error('Sorry! That vault does not exist.');
 					router.push({ name: 'Home' });
 					return;
@@ -82,6 +82,12 @@ export default {
 
 		onMounted(() => getVaultDetails());
 		onBeforeUnmount(() => clearAppState());
+		watchEffect(() => {
+			if (Number.isInteger(parseInt(route.params.vaultId))){
+				clearAppState();
+				getVaultDetails();
+			}
+		});
 
 		return {
 			account: computed(() => AppState.account),
@@ -163,6 +169,11 @@ export default {
 	&:hover {
 		filter: brightness(1.25);
 		transform: translateY(-10px);
+	}
+	p {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 }
 

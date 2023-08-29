@@ -45,7 +45,7 @@ import { useRoute } from 'vue-router';
 import { accountService } from '../services/AccountService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
-import { computed, onMounted, onBeforeUnmount } from 'vue';
+import { computed, onMounted, onBeforeUnmount, watchEffect } from 'vue';
 import { AppState } from '../AppState';
 import { keepsService } from '../services/KeepsService';
 import { vaultsService } from '../services/VaultsService';
@@ -54,19 +54,21 @@ import { Modal } from 'bootstrap';
 export default {
 	setup() {
 		const route = useRoute();
+		const account = computed(() => AppState.account);
 		async function getAccountDetails() {
 			try {
-					await accountService.getAccountById(route.params.userId);
-					await keepsService.getKeepsByUid(route.params.userId);
-					await vaultsService.getVaultsByUid(route.params.userId);
+				await accountService.getAccountById(route.params.userId);
+				await keepsService.getKeepsByUid(route.params.userId);
+				await vaultsService.getVaultsByUid(route.params.userId);
 			}
 			catch (error) {
-					Pop.error(error.message);
-					logger.error(error);
+				Pop.error(error.message);
+				logger.error(error);
 			}
 		}
 		function clearAppState() {
 				try {
+					accountService.clearAccount();
 					keepsService.clearAllKeeps();
 					vaultsService.clearAllVaults();
 				}
@@ -77,7 +79,15 @@ export default {
 		}
 		onMounted(() => getAccountDetails());
 		onBeforeUnmount(() => clearAppState());
+		watchEffect(() => {
+			if(route.params.userId?.length === 24) {
+				clearAppState();
+				getAccountDetails();
+			}
+		});
+
 		return {
+			account,
 			activeAccount: computed(() => AppState.activeAccount),
 			keeps: computed(() => AppState.keeps),
 			vaults: computed(() => AppState.vaults),
@@ -118,6 +128,11 @@ i {
 	&:hover {
 		filter: brightness(1.25);
 		transform: translateY(-10px);
+	}
+	p {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 }
 

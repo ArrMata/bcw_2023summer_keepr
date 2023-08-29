@@ -1,6 +1,6 @@
 <template>
 	<!-- Modal Body -->
-	<div class="modal fade" id="createVaultModal" tabindex="-1" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+	<div class="modal fade" id="createVaultModal" tabindex="-1" data-bs-keyboard="false" role="dialog" aria-labelledby="createVaultModal" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-body">
@@ -10,7 +10,7 @@
 					<p class="mb-0 oxygen fw-bold fs-2">Add your vault</p>
 					<form @submit.prevent="createVault">
 						<div class="form-floating mb-3">
-							<input v-model="vaultData.name" type="text" class="form-control inter" id="vaultNameInput" placeholder="" minlength="5" maxlength="100" required>
+							<input v-model="vaultData.name" type="text" class="form-control inter" id="vaultNameInput" placeholder="" minlength="5" maxlength="40" required>
 							<label class="inter floating-label" for="keepNameInput">Title...</label>
 						</div>
 						<div class="form-floating mb-3">
@@ -53,8 +53,12 @@ export default {
 			vaultData,
 			async createVault() {
 				try {
-					vaultsService.createVault(vaultData.value, route);
-					vaultData.value = {};
+					// FIXME await
+					await vaultsService.createVault(vaultData.value, route);
+					// FIXME set default
+					vaultData.value = {
+						isPrivate: false,
+					};
 					Modal.getOrCreateInstance('#createVaultModal').hide();
 				} catch (error) {
 					Pop.error(error.message);
