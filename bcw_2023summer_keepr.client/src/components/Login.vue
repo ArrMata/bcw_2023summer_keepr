@@ -20,6 +20,11 @@
                 My Profile
               </div>
             </router-link>
+            <router-link v-if="account.id" :to="{ name: 'EditAccount' }">
+              <div class="list-group-item dropdown-item list-group-item-action">
+                Edit Profile
+              </div>
+            </router-link>
             <div class="list-group-item dropdown-item list-group-item-action text-danger selectable" @click="logout">
               <i class="mdi mdi-logout"></i>
               Logout
@@ -39,6 +44,11 @@
             <router-link v-if="account.id" :to="{ name: 'Profile', params: { userId: account.id } }">
               <div class="list-group-item dropdown-item list-group-item-action">
                 My Profile
+              </div>
+            </router-link>
+            <router-link v-if="account.id" :to="{ name: 'EditAccount' }">
+              <div class="list-group-item dropdown-item list-group-item-action">
+                Edit Profile
               </div>
             </router-link>
             <div class="list-group-item dropdown-item list-group-item-action text-danger selectable" @click="logout">
@@ -76,5 +86,8 @@ export default {
 .profile-picture {
   border-radius: 50%;
   width: 2.75rem;
+  object-fit: cover;
+  object-position: center;
+  aspect-ratio: 1/1;
 }
 </style>
