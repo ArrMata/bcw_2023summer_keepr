@@ -22,14 +22,28 @@ class KeepsService {
 		AppState.keeps.push(new Keep(res.data));
 	}
 
-	async getActiveKeep(keepId) {
+	async getActiveKeep(keepId, vaultKeepId = null) {
 		const res = await api.get(`api/keeps/${keepId}`);
 		AppState.activeKeep = new Keep(res.data);
+		if (vaultKeepId) {
+			AppState.activeKeep.vaultKeepId = vaultKeepId;
+		}
 	}
 
 	async getKeepsByUid(uid) {
 		const res = await api.get(`api/profiles/${uid}/keeps`);
 		AppState.keeps = res.data.map(k => new Keep(k));
+	}
+
+	async getKeepsByVaultId(vaultId) {
+		const res = await api.get(`api/vaults/${vaultId}/keeps`)
+		AppState.keeps = res.data.map(k => new Keep(k));
+	}
+
+	async deleteKeep() {
+		const keepId = AppState.activeKeep.id;
+		await api.delete(`api/keeps/${keepId}`);
+		AppState.keeps = AppState.keeps.filter(k => k.id != keepId);
 	}
 
 }

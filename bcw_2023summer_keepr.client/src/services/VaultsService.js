@@ -25,8 +25,17 @@ class VaultsService {
 		AppState.activeVault = new Vault(res.data);
 	}
 
+	async deleteVault() {
+		const vaultId = AppState.activeVault.id;
+		await api.delete(`api/vaults/${vaultId}`);
+	}
+
 	clearAllVaults() {
 		AppState.vaults = [];
+	}
+
+	clearActiveVault() {
+		AppState.activeVault = {};
 	}
 }
 
