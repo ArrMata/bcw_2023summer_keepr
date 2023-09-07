@@ -111,11 +111,11 @@ namespace bcw_2023summer_keepr
 				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Jot v1"));
 				app.UseCors("CorsDevPolicy");
 			}
-			else
-			{
-				app.UseMiddleware<GlobalRoutePrefixMiddleware>("/keepr");
-				app.UsePathBase(new PathString("/keepr"));
-			}
+			// else
+			// {
+			// 	app.UseMiddleware<GlobalRoutePrefixMiddleware>("/keepr");
+			// 	app.UsePathBase(new PathString("/keepr"));
+			// }
 
 			app.UseHttpsRedirection();
 
