@@ -10,6 +10,23 @@ using MySqlConnector;
 
 namespace bcw_2023summer_keepr
 {
+	public class GlobalRoutePrefixMiddleware
+	{
+		private readonly RequestDelegate _next;
+		private readonly string _prefix;
+
+		public GlobalRoutePrefixMiddleware(RequestDelegate next, string prefix)
+		{
+			_next = next;
+			_prefix = prefix;
+		}
+
+		public async Task InvokeAsync(HttpContext ctx)
+		{
+			ctx.Request.PathBase = new PathString(_prefix);
+			await _next(ctx);
+		}
+	}
 
 	public class Startup
 	{
@@ -25,34 +42,34 @@ namespace bcw_2023summer_keepr
 		{
 			ConfigureCors(services);
 			ConfigureAuth(services);
-			_ = services.AddControllers();
-			_ = services.AddSwaggerGen(c =>
+			services.AddControllers();
+			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "bcw_2023summer_keepr", Version = "v1" });
 			});
-			_ = services.AddSingleton<Auth0Provider>();
-			_ = services.AddScoped(x => CreateDbConnection());
+			services.AddSingleton<Auth0Provider>();
+			services.AddScoped(x => CreateDbConnection());
 
-			_ = services.AddScoped<AccountsRepository>();
-			_ = services.AddScoped<AccountService>();
+			services.AddScoped<AccountsRepository>();
+			services.AddScoped<AccountService>();
 
-			_ = services.AddScoped<KeepsRepository>();
-			_ = services.AddScoped<KeepsService>();
+			services.AddScoped<KeepsRepository>();
+			services.AddScoped<KeepsService>();
 
-			_ = services.AddScoped<VaultsRepository>();
-			_ = services.AddScoped<VaultsService>();
+			services.AddScoped<VaultsRepository>();
+			services.AddScoped<VaultsService>();
 
-			_ = services.AddScoped<VaultKeepsRepository>();
-			_ = services.AddScoped<VaultKeepsService>();
+			services.AddScoped<VaultKeepsRepository>();
+			services.AddScoped<VaultKeepsService>();
 		}
 
 		private static void ConfigureCors(IServiceCollection services)
 		{
-			_ = services.AddCors(options =>
+			services.AddCors(options =>
 			{
 				options.AddPolicy("CorsDevPolicy", builder =>
 							{
-								_ = builder
+								builder
 									.AllowAnyMethod()
 									.AllowAnyHeader()
 									.AllowCredentials()
@@ -65,7 +82,7 @@ namespace bcw_2023summer_keepr
 
 		private void ConfigureAuth(IServiceCollection services)
 		{
-			_ = services.AddAuthentication(options =>
+			services.AddAuthentication(options =>
 			{
 				options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 				options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -89,32 +106,32 @@ namespace bcw_2023summer_keepr
 		{
 			if (env.IsDevelopment())
 			{
-				_ = app.UseDeveloperExceptionPage();
-				_ = app.UseSwagger();
-				_ = app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Jot v1"));
-				_ = app.UseCors("CorsDevPolicy");
+				app.UseDeveloperExceptionPage();
+				app.UseSwagger();
+				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Jot v1"));
+				app.UseCors("CorsDevPolicy");
 			}
 			else
 			{
-				_ = app.UseMiddleware<GlobalRoutePrefixMiddleware>("/keepr");
-				_ = app.UsePathBase(new PathString("/keepr"));
+				app.UseMiddleware<GlobalRoutePrefixMiddleware>("/keepr");
+				app.UsePathBase(new PathString("/keepr"));
 			}
 
-			_ = app.UseHttpsRedirection();
+			app.UseHttpsRedirection();
 
-			_ = app.UseDefaultFiles();
-			_ = app.UseStaticFiles();
+			app.UseDefaultFiles();
+			app.UseStaticFiles();
 
-			_ = app.UseRouting();
+			app.UseRouting();
 
-			_ = app.UseAuthentication();
+			app.UseAuthentication();
 
-			_ = app.UseAuthorization();
+			app.UseAuthorization();
 
 
-			_ = app.UseEndpoints(endpoints =>
+			app.UseEndpoints(endpoints =>
 			{
-				_ = endpoints.MapControllers();
+				endpoints.MapControllers();
 			});
 		}
 	}
