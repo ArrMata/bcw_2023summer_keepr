@@ -10,24 +10,6 @@ using MySqlConnector;
 
 namespace bcw_2023summer_keepr
 {
-	// public class GlobalRoutePrefixMiddleware
-	// {
-	// 	private readonly RequestDelegate _next;
-	// 	private readonly string _prefix;
-
-	// 	public GlobalRoutePrefixMiddleware(RequestDelegate next, string prefix)
-	// 	{
-	// 		_next = next;
-	// 		_prefix = prefix;
-	// 	}
-
-	// 	public async Task InvokeAsync(HttpContext ctx)
-	// 	{
-	// 		ctx.Request.PathBase = new PathString(_prefix);
-	// 		await _next(ctx);
-	// 	}
-	// }
-
 	public class Startup
 	{
 		public Startup(IConfiguration configuration)
@@ -111,11 +93,11 @@ namespace bcw_2023summer_keepr
 				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Jot v1"));
 				app.UseCors("CorsDevPolicy");
 			}
-			// else
-			// {
-			// 	app.UseMiddleware<GlobalRoutePrefixMiddleware>("/keepr");
-			// 	app.UsePathBase(new PathString("/keepr"));
-			// }
+			else
+			{
+				app.UseMiddleware<GlobalRoutePrefixMiddleware>("/keepr");
+				app.UsePathBase(new PathString("/keepr"));
+			}
 
 			app.UseHttpsRedirection();
 
