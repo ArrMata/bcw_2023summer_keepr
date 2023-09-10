@@ -2,53 +2,53 @@ namespace bcw_2023summer_keepr.Repositories;
 
 public class AccountsRepository
 {
-  private readonly IDbConnection _db;
+	private readonly IDbConnection _db;
 
-  public AccountsRepository(IDbConnection db)
-  {
-    _db = db;
-  }
+	public AccountsRepository(IDbConnection db)
+	{
+		_db = db;
+	}
 
-  internal Account GetByEmail(string userEmail)
-  {
-    string sql = "SELECT * FROM accounts WHERE email = @userEmail";
-    return _db.QueryFirstOrDefault<Account>(sql, new { userEmail });
-  }
+	internal Account GetByEmail(string userEmail)
+	{
+		string sql = "SELECT * FROM accounts WHERE email = @userEmail";
+		return _db.QueryFirstOrDefault<Account>(sql, new { userEmail });
+	}
 
-  internal Account GetById(string id)
-  {
-    string sql = "SELECT * FROM accounts WHERE id = @id";
-    return _db.QueryFirstOrDefault<Account>(sql, new { id });
-  }
+	internal Account GetById(string id)
+	{
+		string sql = "SELECT * FROM accounts WHERE id = @id";
+		return _db.QueryFirstOrDefault<Account>(sql, new { id });
+	}
 
-  internal Profile GetProfileById(string id)
-  {
-    string sql = "SELECT id, createdAt, updatedAt, picture, name, coverImg FROM accounts WHERE id = @id";
-    return _db.QueryFirstOrDefault<Profile>(sql, new { id });
-  }
+	internal Profile GetProfileById(string id)
+	{
+		string sql = "SELECT id, createdAt, updatedAt, picture, name, coverImg FROM accounts WHERE id = @id";
+		return _db.QueryFirstOrDefault<Profile>(sql, new { id });
+	}
 
-  internal Account Create(Account newAccount)
-  {
-    string sql = @"
+	internal Account Create(Account newAccount)
+	{
+		string sql = @"
             INSERT INTO accounts
               (name, picture, email, id)
             VALUES
               (@Name, @Picture, @Email, @Id)";
-    _db.Execute(sql, newAccount);
-    return newAccount;
-  }
+		_db.Execute(sql, newAccount);
+		return newAccount;
+	}
 
-  internal Account Edit(Account update)
-  {
-    string sql = @"
+	internal Account Edit(Account update)
+	{
+		string sql = @"
             UPDATE accounts
             SET 
               name = @Name,
               picture = @Picture,
               coverImg = @CoverImg
             WHERE id = @Id;";
-    _db.Execute(sql, update);
-    return update;
-  }
+		_db.Execute(sql, update);
+		return update;
+	}
 }
 
