@@ -1,3 +1,5 @@
+ ![Keepr Preview Image](preview.jpg)
+
 # Keepr
 
 ## Summary
